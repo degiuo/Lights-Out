@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://b6rw28qymnsb7"]
+
+[ext_resource type="PackedScene" uid="uid://53efgonkn3k1" path="res://scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="Texture2D" uid="uid://bvggcccpw3fkx" path="res://images/sky.hdr" id="1_sugp2"]
+[ext_resource type="Texture2D" uid="uid://cq0hbgn7ia2k1" path="res://images/grounded.png" id="3_jyhfs"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_sugp2"]
+panorama = ExtResource("1_sugp2")
+
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("PanoramaSkyMaterial_sugp2")
+
+[sub_resource type="Environment" id="Environment_tefeu"]
+background_mode = 2
+sky = SubResource("Sky_0wfyh")
+glow_enabled = true
+fog_mode = 1
+fog_density = 0.265
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1
+volumetric_fog_anisotropy = 0.0
+volumetric_fog_length = 45.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lrpe4"]
+albedo_texture = ExtResource("3_jyhfs")
+
+[node name="main" type="Node3D" unique_id=2002479979]
+
+[node name="env" type="Node3D" parent="." unique_id=1339747839]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="env" unique_id=535559755]
+environment = SubResource("Environment_tefeu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=2143229521]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=424758563 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9169195, 0)
+
+[node name="stage" type="Node3D" parent="." unique_id=251576311]
+
+[node name="ground" type="CSGBox3D" parent="stage" unique_id=588761785]
+transform = Transform3D(5, 0, 0, 0, 1.959, 0, 0, 0, 5, 0.103515625, -0.32128906, -0.037597656)
+use_collision = true
+size = Vector3(17, 0.35742188, 16)
+material = SubResource("StandardMaterial3D_lrpe4")
+
+[node name="crouch_wall" type="CSGBox3D" parent="stage" unique_id=2088307583]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.652435, 1.7017822, 0)
+use_collision = true
+size = Vector3(1, 0.2, 10)
