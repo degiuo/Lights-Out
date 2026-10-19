@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://b6rw28qymnsb7"]
 
-[ext_resource type="PackedScene" uid="uid://53efgonkn3k1" path="res://scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://53efgonkn3k1" path="res://player/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://bvggcccpw3fkx" path="res://images/sky.hdr" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://cq0hbgn7ia2k1" path="res://images/grounded.png" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://u581q63jqw7k" path="res://elements/cash_register.gd" id="4_tefeu"]
+[ext_resource type="PackedScene" uid="uid://cekmdhcgw6iiy" path="res://items/buy.tscn" id="5_o6xl0"]
 [ext_resource type="Shader" uid="uid://dssdhqpya3srp" path="res://shaders/cash_register_shader.gdshader" id="5_tbgi4"]
-[ext_resource type="Script" uid="uid://dyp2yexylrlpe" path="res://scripts/interact.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://cfohafu367eer" path="res://elements/rack.gd" id="6_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://c6ku71orolgmr" path="res://elements/ball.tscn" id="8_tipki"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_sugp2"]
 panorama = ExtResource("1_sugp2")
@@ -26,11 +29,11 @@ volumetric_fog_length = 45.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lrpe4"]
 albedo_texture = ExtResource("3_jyhfs")
 
-[sub_resource type="BoxMesh" id="BoxMesh_8nlda"]
-size = Vector3(2.5422363, 1, 0.7230835)
-
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jyhfs"]
 data = PackedVector3Array(-1.2710999, 0.5, 0.3615, 1.2710999, 0.5, 0.3615, -1.2710999, -0.5, 0.3615, 1.2710999, 0.5, 0.3615, 1.2710999, -0.5, 0.3615, -1.2710999, -0.5, 0.3615, 1.2710999, 0.5, -0.3615, -1.2710999, 0.5, -0.3615, 1.2710999, -0.5, -0.3615, -1.2710999, 0.5, -0.3615, -1.2710999, -0.5, -0.3615, 1.2710999, -0.5, -0.3615, 1.2710999, 0.5, 0.3615, 1.2710999, 0.5, -0.3615, 1.2710999, -0.5, 0.3615, 1.2710999, 0.5, -0.3615, 1.2710999, -0.5, -0.3615, 1.2710999, -0.5, 0.3615, -1.2710999, 0.5, -0.3615, -1.2710999, 0.5, 0.3615, -1.2710999, -0.5, -0.3615, -1.2710999, 0.5, 0.3615, -1.2710999, -0.5, 0.3615, -1.2710999, -0.5, -0.3615, 1.2710999, 0.5, 0.3615, -1.2710999, 0.5, 0.3615, 1.2710999, 0.5, -0.3615, -1.2710999, 0.5, 0.3615, -1.2710999, 0.5, -0.3615, 1.2710999, 0.5, -0.3615, -1.2710999, -0.5, 0.3615, 1.2710999, -0.5, 0.3615, -1.2710999, -0.5, -0.3615, 1.2710999, -0.5, 0.3615, 1.2710999, -0.5, -0.3615, -1.2710999, -0.5, -0.3615)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8nlda"]
+size = Vector3(2.5422363, 1, 0.7230835)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tefeu"]
 data = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
@@ -84,20 +87,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21.02312)
 
 [node name="cash_register_node" type="Node3D" parent="store_node" unique_id=313080607]
 
-[node name="checkout_counter" type="MeshInstance3D" parent="store_node/cash_register_node" unique_id=980210457]
+[node name="checkout_counter" type="StaticBody3D" parent="store_node/cash_register_node" unique_id=275324375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18492317, 0.48094976, -0.03426361)
-mesh = SubResource("BoxMesh_8nlda")
+collision_layer = 11
+collision_mask = 11
 
-[node name="StaticBody3D" type="StaticBody3D" parent="store_node/cash_register_node/checkout_counter" unique_id=275324375]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="store_node/cash_register_node/checkout_counter/StaticBody3D" unique_id=1548179317]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="store_node/cash_register_node/checkout_counter" unique_id=1548179317]
 shape = SubResource("ConcavePolygonShape3D_jyhfs")
 
-[node name="cash_register" type="StaticBody3D" parent="store_node/cash_register_node" unique_id=1082189663]
+[node name="mesh" type="MeshInstance3D" parent="store_node/cash_register_node/checkout_counter" unique_id=980210457]
+mesh = SubResource("BoxMesh_8nlda")
+
+[node name="cash_register" type="StaticBody3D" parent="store_node/cash_register_node" unique_id=1082189663 groups=["interactable"]]
 transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, 0.7404138, 1.2101177, 0)
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("6_tefeu")
+script = ExtResource("4_tefeu")
+required_scene = ExtResource("5_o6xl0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="store_node/cash_register_node/cash_register" unique_id=1758432218]
 shape = SubResource("ConcavePolygonShape3D_tefeu")
@@ -108,14 +112,18 @@ mesh = SubResource("PrismMesh_lrpe4")
 [node name="rack_node" type="Node3D" parent="store_node" unique_id=1202249307]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.857097, 0.47305954, 0)
 
-[node name="rack" type="StaticBody3D" parent="store_node/rack_node" unique_id=111707101 groups=["rack"]]
+[node name="rack" type="StaticBody3D" parent="store_node/rack_node" unique_id=111707101 groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.61471534, 0.9472046, -0.12768555)
-collision_layer = 5
-collision_mask = 4
-script = ExtResource("6_tefeu")
+script = ExtResource("6_o6xl0")
+item_scene = ExtResource("5_o6xl0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="store_node/rack_node/rack" unique_id=413612481]
 shape = SubResource("ConcavePolygonShape3D_tbgi4")
 
 [node name="mesh" type="MeshInstance3D" parent="store_node/rack_node/rack" unique_id=201095711]
 mesh = SubResource("BoxMesh_lrpe4")
+
+[node name="object" type="Node3D" parent="." unique_id=434833512]
+
+[node name="ball" parent="object" unique_id=487297151 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)

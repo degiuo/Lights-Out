@@ -1,0 +1,11 @@
+res://scenes/main.tscn
+res://scripts/interactable.gd
+res://scripts/inventory.gd
+res://elements/rack.gd
+res://elements/cash_register.gd
+res://player/head.gd
+res://player/player.tscn
+res://player/see_raycast.gd
+res://player/gui.tscn
+res://player/player.gd
+res://elements/ball.tscn
